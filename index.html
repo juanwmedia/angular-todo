@@ -25,14 +25,13 @@
 
         <hr/>
 
-        <pre>{{ todo | json }}</pre>
-
         <!-- Listado de tareas -->
         <ul class="list-group">
 
-            <li class="list-group-item clearfix">
+            <li     ng-repeat="tarea in todo.tareas"
+                    class="list-group-item clearfix">
                 <p class="lead">
-
+                    {{ tarea.nombre }}
                 </p>
                 <div>
                     <span class="pull-right">

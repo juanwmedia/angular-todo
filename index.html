@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-<div class="container">
+<body ng-app="TodoApp">
+<div class="container" ng-controller="TodoController as todo">
     <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-5 col-lg-offset-3 col-lg-5">
         <h2>ToDo App</h2>
 
@@ -25,10 +25,15 @@
 
         <hr/>
 
+        <pre>{{ todo | json }}</pre>
+
         <!-- Listado de tareas -->
-        <!--<ul class="list-group">
+        <ul class="list-group">
+
             <li class="list-group-item clearfix">
-                <p class="lead"></p>
+                <p class="lead">
+
+                </p>
                 <div>
                     <span class="pull-right">
                         <button class="btn btn-default btn-xs">
@@ -45,10 +50,11 @@
                     </span>
                 </div>
             </li>
-        </ul>-->
+        </ul>
     </div>
 </div>
 <script src="js/angular.js"></script>
 <script src="js/main.js"></script>
+<script src="js/controllers.js"></script>
 </body>
 </html>

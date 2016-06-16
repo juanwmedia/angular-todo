@@ -22,12 +22,14 @@
 					</span>
             </div>
         </form>
-
+        <hr>
+        <blockquote>
+            <p>{{ todo.tareas.length - todo.tareasCompletadas.length }} tareas restantes de {{ todo.tareas.length }} disponibles</p>
+            <footer>{{ todo.tareasCompletadas.length }} tareas completadas.</footer>
+        </blockquote>
         <hr/>
-
         <!-- Listado de tareas -->
         <ul class="list-group">
-
             <li ng-repeat="tarea in todo.tareas"
                 class="list-group-item clearfix">
                 <p ng-hide="mostrarEdit === true"

@@ -2,11 +2,18 @@ function TodoController(TodoService) {
     var vm = this;
     vm.nuevaTarea = '';
     vm.tareas = [];
+    vm.tareasCompletadas = [];
+    vm.obtenerTareasCompletadas = function() {
+        vm.tareasCompletadas = vm.tareas.filter(function(tarea){
+            return tarea.completed;
+        });
+    };
     vm.obtenerTareas = function () {
         TodoService
             .obtenerTareas()
             .then(function (respuesta) {
                 vm.tareas = respuesta;
+                vm.obtenerTareasCompletadas();
             });
     }
     vm.agregarTarea = function () {

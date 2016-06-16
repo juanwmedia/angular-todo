@@ -5,7 +5,7 @@ function TodoService($http) {
         return $http
             .get(API)
             .then(function (respuesta) {
-                return respuesta.data;
+                return respuesta.data.splice(0, 10);
             })
     }
 

@@ -8,6 +8,10 @@ function TodoController() {
         });
         vm.nuevaTarea = '';
     };
+    vm.editarTarea = function(nombre, indice) {
+        if (!nombre) return;
+        vm.tareas[indice].nombre = nombre;
+    };
     vm.eliminarTarea = function(indice) {
         vm.tareas.splice(indice, 1);
     };

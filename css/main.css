@@ -1,0 +1,4 @@
+.list-group-item input[type=text] {
+    width: 100%;
+    margin-bottom: 15px;
+}

@@ -1,28 +1,37 @@
-function TodoController() {
+function TodoController(TodoService) {
     var vm = this;
     vm.nuevaTarea = '';
-    vm.agregarTarea = function() {
-        vm.tareas.unshift({
-            nombre: vm.nuevaTarea,
-            completado: false
-        });
-        vm.nuevaTarea = '';
+    vm.tareas = [];
+    vm.obtenerTareas = function () {
+        TodoService
+            .obtenerTareas()
+            .then(function (respuesta) {
+                vm.tareas = respuesta;
+            });
+    }
+    vm.agregarTarea = function () {
+        TodoService
+            .agregarTarea({
+                title: vm.nuevaTarea,
+                completed: false
+            })
+            .then(function (respuesta) {
+                vm.tareas.unshift(respuesta);
+                vm.nuevaTarea = '';
+            });
     };
-    vm.editarTarea = function(nombre, indice) {
-        if (!nombre) return;
-        vm.tareas[indice].nombre = nombre;
+    vm.editarTarea = function (tarea) {
+        TodoService
+            .editarTarea(tarea);
     };
-    vm.eliminarTarea = function(indice) {
-        vm.tareas.splice(indice, 1);
+    vm.eliminarTarea = function (tarea, indice) {
+        TodoService
+            .eliminarTarea(tarea)
+            .then(function (respuesta) {
+                vm.tareas.splice(indice, 1);
+            });
     };
-    vm.tareas = [
-        { nombre: 'Hacer la cama', completado: false },
-        { nombre: 'Comprar café', completado: true },
-        { nombre: 'Limpiar el coche', completado: false },
-        { nombre: 'Aprender Angular', completado: true },
-        { nombre: 'Conectar con Firebase', completado: false },
-        { nombre: 'Preparar la comida', completado: true },
-    ];
+    vm.obtenerTareas();
 }
 
 angular

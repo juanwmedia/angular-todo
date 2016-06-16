@@ -31,12 +31,12 @@
             <li ng-repeat="tarea in todo.tareas"
                 class="list-group-item clearfix">
                 <p ng-hide="mostrarEdit === true"
-                   ng-class="{completado: tarea.completado}"
+                   ng-class="{completado: tarea.completed}"
                    class="lead">
-                    {{ tarea.nombre }}
+                    {{ tarea.title }}
                 </p>
-                <input ng-blur="todo.editarTarea(tarea.nombre, $index); mostrarEdit = false" type="text"
-                       ng-show="mostrarEdit === true" ng-model="tarea.nombre">
+                <input ng-blur="todo.editarTarea(tarea, $index); mostrarEdit = false" type="text"
+                       ng-show="mostrarEdit === true" ng-model="tarea.title">
                 <div>
                     <span class="pull-right">
                         <button ng-click="mostrarEdit = !mostrarEdit" class="btn btn-default btn-xs">
@@ -47,7 +47,7 @@
                         <button ng-click="tarea.completado = false" class="btn btn-primary btn-xs">
                             <span class="glyphicon glyphicon-repeat"></span>
                         </button>
-                        <button ng-click="todo.eliminarTarea($index)" class="btn btn-danger btn-xs">
+                        <button ng-click="todo.eliminarTarea(tarea, $index)" class="btn btn-danger btn-xs">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </span>
@@ -62,5 +62,6 @@
 <script src="js/angular.js"></script>
 <script src="js/main.js"></script>
 <script src="js/controllers.js"></script>
+<script src="js/services.js"></script>
 </body>
 </html>

@@ -7,7 +7,10 @@ function TodoController() {
             completado: false
         });
         vm.nuevaTarea = '';
-    }
+    };
+    vm.eliminarTarea = function(indice) {
+        vm.tareas.splice(indice, 1);
+    };
     vm.tareas = [
         { nombre: 'Hacer la cama', completado: false },
         { nombre: 'Comprar café', completado: true },

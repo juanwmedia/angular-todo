@@ -30,7 +30,9 @@
 
             <li ng-repeat="tarea in todo.tareas"
                 class="list-group-item clearfix">
-                <p ng-hide="mostrarEdit === true" class="lead">
+                <p ng-hide="mostrarEdit === true"
+                   ng-class="{completado: tarea.completado}"
+                   class="lead">
                     {{ tarea.nombre }}
                 </p>
                 <input ng-blur="todo.editarTarea(tarea.nombre, $index); mostrarEdit = false" type="text"
@@ -40,9 +42,9 @@
                         <button ng-click="mostrarEdit = !mostrarEdit" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button class="btn btn-primary btn-xs">
+                        <button ng-click="tarea.completado = true" class="btn btn-primary btn-xs">
                             <span class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-primary btn-xs">
+                        <button ng-click="tarea.completado = false" class="btn btn-primary btn-xs">
                             <span class="glyphicon glyphicon-repeat"></span>
                         </button>
                         <button ng-click="todo.eliminarTarea($index)" class="btn btn-danger btn-xs">

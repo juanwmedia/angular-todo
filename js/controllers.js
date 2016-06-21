@@ -1,23 +1,28 @@
-function TodoController(TodoService) {
-    var vm = this;
+function TodoController(APIRestService, LocalService) {
+    var vm = this,
+        servicio = LocalService;
     vm.nuevaTarea = '';
     vm.tareas = [];
     vm.tareasCompletadas = [];
-    vm.obtenerTareasCompletadas = function() {
-        vm.tareasCompletadas = vm.tareas.filter(function(tarea){
+
+    vm.obtenerTareasCompletadas = function () {
+        vm.tareasCompletadas = vm.tareas.filter(function (tarea) {
             return tarea.completed;
         });
     };
     vm.obtenerTareas = function () {
-        TodoService
+        servicio
             .obtenerTareas()
             .then(function (respuesta) {
                 vm.tareas = respuesta;
                 vm.obtenerTareasCompletadas();
+            })
+            .catch(function (error)  {
+                console.error(error);
             });
     }
     vm.agregarTarea = function () {
-        TodoService
+        servicio
             .agregarTarea({
                 title: vm.nuevaTarea,
                 completed: false
@@ -27,12 +32,12 @@ function TodoController(TodoService) {
                 vm.nuevaTarea = '';
             });
     };
-    vm.editarTarea = function (tarea) {
-        TodoService
-            .editarTarea(tarea);
+    vm.editarTarea = function (tarea, indice) {
+        servicio
+            .editarTarea(tarea, indice);
     };
     vm.eliminarTarea = function (tarea, indice) {
-        TodoService
+        servicio
             .eliminarTarea(tarea)
             .then(function (respuesta) {
                 vm.tareas.splice(indice, 1);

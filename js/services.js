@@ -1,4 +1,5 @@
-function TodoService($http) {
+// Conexión a API externa
+function APIRestService($http) {
     var API = '//jsonplaceholder.typicode.com/todos/';
 
     function obtenerTareas() {
@@ -41,6 +42,58 @@ function TodoService($http) {
     }
 }
 
+// Usando almacenamiento local
+function LocalService($q) {
+    var key = 'tareas';
+
+    function obtenerTareas() {
+        var deferred = $q.defer(),
+            tareas = angular.fromJson(window.localStorage[key]);
+        if (tareas) {
+            deferred.resolve(tareas);
+        } else {
+            deferred.reject('No hay tareas en el almacenaiento local');
+        }
+        return deferred.promise;
+    }
+
+    function agregarTarea(tarea) {
+        var deferred = $q.defer();
+            tareas = angular.fromJson(window.localStorage[key]);
+        tareas = tareas || [];
+        tareas.unshift(tarea);
+        window.localStorage[key] = angular.toJson(tareas);
+        deferred.resolve(tarea);
+        return deferred.promise;
+    }
+
+    function editarTarea(tarea, indice) {
+        var deferred = $q.defer();
+            tareas = angular.fromJson(window.localStorage[key]);
+        tareas[indice] = tarea;
+        window.localStorage[key] = angular.toJson(tareas);
+        deferred.resolve(tarea);
+        return deferred.promise;
+    }
+
+    function eliminarTarea(tarea, indice) {
+        var deferred = $q.defer();
+            tareas = angular.fromJson(window.localStorage[key]);
+        tareas.splice(indice, 1);
+        window.localStorage[key] = angular.toJson(tareas);
+        deferred.resolve(tarea);
+        return deferred.promise;
+    }
+
+    return {
+        obtenerTareas: obtenerTareas,
+        editarTarea: editarTarea,
+        agregarTarea: agregarTarea,
+        eliminarTarea: eliminarTarea
+    }
+}
+
 angular
     .module('TodoApp')
-    .factory('TodoService', TodoService);
+    .factory('APIRestService', APIRestService)
+    .factory('LocalService', LocalService);
